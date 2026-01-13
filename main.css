@@ -606,7 +606,7 @@ body{ font-family: var(--font); color: var(--text); }
   .plate.topB.cover{ background-image:url("./img/topS_02.png"); }
   .plate.topC.cover{ background-image:url("./img/topS_03.png"); }
 
-  .plate.leftBig.cover{ background-image:url("/portfolio-video/assets/img/BG_main.png"); }
+  .plate.leftBig.cover{ background-image:url("assets/img/BG_main.png"); }
 /* =========================================================
    ✅ CANVAS TEXT ADD-ONS (Desktop only)
    ========================================================= */
@@ -727,7 +727,7 @@ body{ font-family: var(--font); color: var(--text); }
     width: 528px;
     height: 494px;
     border-radius: 8px;
-    background-image: url("/portfolio-video/assets/img/BG_main.png");
+    background-image: url("assets/img/BG_main.png");
   }
 
   .plate.topA{ left: 684px; top: 114px; width: 156px; height: 206px; border-radius: 8px; }
@@ -1776,6 +1776,7 @@ body{ font-family: var(--font); color: var(--text); }
     0 14px 34px rgba(0, 0, 0, 0.22),
     0 2px 10px rgba(0, 0, 0, 0.16);
 }
+
 
 
 
