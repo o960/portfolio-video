@@ -1,0 +1,1779 @@
+:root{
+  --paper:#ffffff;
+  --greyA:#dedede;
+  --greyB:#d8d8d8;
+  --ink:#000;
+  --text:#111;
+
+  --W:1200;
+  --H:760;
+
+  --groupShiftX:-60px;
+
+  --minScale:0.55;
+  --maxScale:0.85;
+
+  --pad:36px;
+  --font: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+
+  --paperScale: 1;
+  --paperWidth: 100vw;
+  --paperGutter: 0px;
+
+  --railLeft: 0px;
+  --railWidth: 100%;
+}
+
+*{ box-sizing:border-box; }
+
+html,body{
+  width:100%;
+  height:100%;
+  margin:0;
+  padding:0;
+  overflow-x:hidden;
+  overflow-y:auto;
+  background: var(--paper);
+}
+
+body{ font-family: var(--font); color: var(--text); }
+
+.page{ width:100%; }
+
+.section-gap{ height: 10px; background: var(--paper); }
+
+/* =========================================================
+   GATE DEFAULTS
+   - Default: show gate, hide desktop-only
+   - Desktop mode (>=1025px): hide gate, show desktop-only
+   - Mobile mode (<=1024px): ONLY gate should be visible
+   ========================================================= */
+
+.mobile-block{
+  position: fixed;
+  inset: 0;
+  display:grid;
+  place-items:center;
+  background: var(--paper);
+  z-index: 999999; /* ensure gate is always on top */
+}
+
+.mobile-block__inner{ text-align:center; padding:24px; }
+
+.mobile-block__title{
+  font-size:18px;
+  letter-spacing:0.18em;
+  text-transform:uppercase;
+  opacity:0.85;
+  color: #000;
+}
+
+.desktop-only{ display:none; }
+
+.hero > .viewport,
+.hero > .mobile-block{
+  position: relative;
+  z-index: 2;
+}
+
+/* rails */
+@media (min-width:1025px){
+  :root{
+    --fitScale: min(
+      calc((100vw - (var(--pad) * 2)) / (var(--W) * 1px)),
+      calc((100vh - (var(--pad) * 2)) / (var(--H) * 1px))
+    );
+    --paperScale: clamp(var(--minScale), var(--fitScale), var(--maxScale));
+    --paperWidth: calc(var(--W) * 1px * var(--paperScale));
+    --paperGutter: calc((100vw - (var(--paperWidth)) ) / 2);
+
+    --railLeft: calc((120px + var(--groupShiftX)) * var(--paperScale));
+    --railWidth: calc(1080px * var(--paperScale));
+  }
+}
+
+.rail-inner{
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 72px 36px;
+  padding-top: 0px;
+}
+
+/* Desktop mode ON (>=1025px) */
+@media (min-width:1025px){
+  .mobile-block{ display:none; }
+  .desktop-only{ display:grid; }
+}
+
+/* =========================================================
+   MOBILE MODE: ONLY GATE VISIBLE (<=1024px)
+   Hide all other content (even if it’s outside .desktop-only).
+   ========================================================= */
+@media (max-width:1024px){
+  /* prevent scroll behind the overlay */
+  html, body{ overflow: hidden; }
+
+  /* hide fixed UI bits too */
+  .page-indicator,
+  .site-footer{
+    display:none !important;
+  }
+
+  /* hide everything except the gate */
+  .page > :not(.hero){
+    display:none !important;
+  }
+
+  /* within the hero, hide everything except the gate */
+  .hero > :not(.mobile-block){
+    display:none !important;
+  }
+
+  /* ensure gate stays visible */
+  .mobile-block{
+    display:grid !important;
+    background:#fff !important;
+  }
+}
+
+/* keep rail-inner behavior on desktop only */
+@media (min-width:1025px){
+  .rail-inner{
+    width: var(--railWidth);
+    max-width: none;
+    margin-left: calc(var(--paperGutter) + var(--railLeft));
+    margin-right: auto;
+    padding-left: 0;
+    padding-right: 0;
+  }
+}
+
+
+/* White sections */
+.white-section{ background:#fff; }
+.white-copy h2{
+  font-size:32px;
+  font-weight:600;
+  margin:0 0 14px 0;
+  letter-spacing:0.01em;
+  padding-top: 105px;
+}
+.white-copy p{
+  font-size:16px;
+  line-height:1.6;
+  margin:0;
+}
+
+.white-sectionPCL{ background:#fff; position: relative; top: -80px; }
+.white-copy h2{
+  font-size:32px;
+  font-weight:600;
+  margin:0 0 14px 0;
+  letter-spacing:0.01em;
+}
+.white-copy p{
+  font-size:16px;
+  line-height:1.6;
+  margin:0;
+}
+
+/* Workflow */
+.workflow-steps{ margin-top:22px; display:grid; gap:18px; }
+.workflow-step h3{ margin:0 0 8px 0; font-size:16px; font-weight:600; }
+.workflow-step ul{ margin:0; padding-left:18px; }
+.workflow-step li{ margin:6px 0; line-height:1.55; }
+
+/* =========================
+   ORANGE SECTION (MAYDA-style)
+   ========================= */
+.blue-section{
+  min-height:100vh;
+  background:#0b00d7;
+  display:flex;
+  align-items:flex-start;
+  justify-content:center;
+  color: white;
+}
+/* =========================
+   Partners, Clients, Learning
+   ========================= */
+
+.pcl-section{
+  margin-bottom: 64px; /* spacing before hardware section */
+}
+
+.pcl-grid{
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0,1fr));
+  gap: 44px;
+}
+
+.pcl-block h3{
+  margin: 0 0 12px 0;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  opacity: 0.95;
+}
+
+.pcl-block ul{
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.pcl-block li{
+  padding: 6px 0;
+  border-bottom: 1px solid rgba(0,0,0,0.20);
+  font-size: 12px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+/* Responsive match to hardware grid */
+@media (max-width:1100px){
+  .pcl-grid{
+    grid-template-columns: repeat(2, minmax(0,1fr));
+    gap: 36px;
+  }
+}
+
+@media (max-width:700px){
+  .pcl-grid{
+    grid-template-columns: 1fr;
+    gap: 30px;
+  }
+}
+
+/* =========================
+   PCL Image Grid (9 Squares)
+   ========================= */
+
+.pcl-grid{
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0,1fr));
+  gap: 32px;
+}
+
+.pcl-tile{
+  aspect-ratio: 1 / 1;
+  background: rgba(255,255,255,0.18);
+  border: 1px solid rgba(255,255,255,0.35);
+  border-radius: 8px;
+
+  /* image-ready */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+
+  transition: transform 240ms ease, background-color 240ms ease;
+}
+
+.pcl-tile:hover{
+  transform: translateY(-2px);
+  background-color: rgba(255,255,255,0.25);
+}
+
+/* Responsive harmony */
+@media (max-width:1100px){
+  .pcl-grid{
+    grid-template-columns: repeat(2, minmax(0,1fr));
+  }
+}
+
+@media (max-width:700px){
+  .pcl-grid{
+    grid-template-columns: 1fr;
+  }
+}
+
+
+/* poster-like behavior */
+.blue-inner{
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;         /* crops the name */
+  padding-top: 64px;
+  padding-bottom: 170px;    /* space for huge type */
+  color: white;
+}
+
+/* HUGE NAME (left aligned + slightly clipped on the right) */
+.blue-brand{
+  position: absolute;
+  left: 0;
+  bottom: 0;
+
+  z-index: 0;
+  pointer-events: none;
+
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: -0.04em;
+  line-height: 0.78;
+
+  /* This is the key: slightly bigger than “fits” */
+  font-size: clamp(84px, calc(14vw + 2vw), 280px);
+
+  color: #ffffff;
+
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: clip;
+}
+
+/* content sits above */
+.hardware-section{
+  position: relative;
+  z-index: 2;
+}
+
+/* title small/tight like reference top text */
+.hardware-title{
+  color:#ffffff;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  margin: 0 0 28px 0;
+  padding-bottom: 14px;
+  border-bottom: 1px solid rgba(0,0,0,0.22);
+}
+
+/* 4 columns = reference-style top info line density */
+.hardware-grid{
+  display:grid;
+  grid-template-columns: repeat(4, minmax(0,1fr));
+  gap: 44px;
+  align-items:start;
+  color: white;
+}
+
+.hardware-block h3{
+  margin: 0 0 10px 0;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  opacity: 0.95;
+  color: white;
+}
+
+.hardware-block ul{
+  list-style:none;
+  padding:0;
+  margin:0;
+  color: white;
+}
+
+.hardware-block li{
+  display:flex;
+  justify-content:space-between;
+  gap: 16px;
+  padding: 6px 0;
+  border-bottom: 1px solid rgba(0,0,0,0.20);
+  color:#ffffff;
+  font-size: 12px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+
+}
+
+.hardware-block li strong{
+  font-weight: 700;
+}
+
+.hardware-block li.note{
+  border: none;
+  opacity: 0.78;
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  line-height: 1.4;
+  padding-top: 10px;
+  display:block;
+  text-transform: none;
+}
+
+.tools-grid{
+  display:grid;
+  grid-template-columns: 1fr;
+  gap: 18px;
+  margin-top: 10px;
+}
+
+.hardware-sub{
+  margin: 0 0 10px 0;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  opacity: 0.85;
+  color: white;
+}
+
+.tool-section ul{ list-style:none; padding:0; margin:0; }
+.tool-section li{
+  padding: 6px 0;
+  border-bottom: 1px solid rgba(0,0,0,0.20);
+  color: white;
+  font-size: 12px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+/* desktop canvas */
+@media (min-width:1025px){
+  .viewport{
+    width:100vw;
+    height:100vh;
+    display:grid;
+    place-items:center;
+    padding: var(--pad);
+    background: transparent;
+  }
+
+  .paper{
+    position:relative;
+    background: transparent;
+    isolation:isolate;
+
+    --fitScale: min(
+      calc((100vw - (var(--pad) * 2)) / (var(--W) * 1px)),
+      calc((100vh - (var(--pad) * 2)) / (var(--H) * 1px))
+    );
+    --scale: clamp(var(--minScale), var(--fitScale), var(--maxScale));
+
+    width:  calc(var(--W) * 1px * var(--scale));
+    height: calc(var(--H) * 1px * var(--scale));
+  }
+
+  .pcl-grid{
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0,1fr));
+  gap: 32px;
+}
+
+.pcl-tile{
+  aspect-ratio: 4 / 4;
+  border-radius: 16px;
+  border: 1px solid rgba(255,255,255,0.18);
+  background: rgba(255,255,255,0.06);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px;
+  overflow: hidden;
+  transition: transform 240ms ease, background-color 240ms ease;
+}
+
+.pcl-tile:hover{
+  transform: translateY(-2px);
+  background-color: rgba(255,255,255,0.25);
+}
+
+/* Same size for every logo */
+.pcl-logo{
+  width: 650px;
+  height: 56px;
+  object-fit: scale-down;
+  display: block;
+}
+
+/* Same size “slot” even if it’s text instead of an image */
+.pcl-text{
+  width: 50px;
+  text-align: center;
+  font-size: 12px;
+  font-weight: 650;
+  letter-spacing: 0.10em;
+  text-transform: uppercase;
+  line-height: 1.15;
+  color: rgba(255,255,255,0.95);
+}
+
+/* Responsive harmony */
+@media (max-width:1100px){
+  .pcl-grid{
+    grid-template-columns: repeat(2, minmax(0,1fr));
+  }
+}
+
+@media (max-width:700px){
+  .pcl-grid{
+    grid-template-columns: 1fr;
+  }
+}
+
+
+  .canvas{
+    position:absolute;
+    left:45%;
+    top:50%;
+    width: calc(var(--W) * 1px);
+    height: calc(var(--H) * 1px);
+    transform: translate(-50%, -50%) scale(var(--scale));
+    transform-origin:center;
+  }
+/* Prevent canvas shift on hover */
+.canvas {
+  will-change: transform;
+  transform: translate(-50%, -50%) scale(var(--scale)) translateZ(0);
+}
+
+  .group{
+    position:absolute;
+    inset:0;
+    transform: translateX(var(--groupShiftX));
+  }
+
+  /* =========================================================
+   ✅ CANVAS TEXT ADD-ONS (Desktop only)
+   ========================================================= */
+
+/* Top-left: aligned to the same left border as #leftBig (left: 90px) */
+.heroTitleBlock{
+  position: absolute;
+  left: 90px;     /* matches .plate.leftBig left */
+  top: 44px;      /* adjust a few px if you want it tighter/higher */
+  width: 528px;   /* matches .plate.leftBig width */
+  z-index: 6;
+  pointer-events: none;
+  text-align: left;
+}
+
+.heroTitle{
+  font-size: 18px;     /* medium heading */
+  font-weight: 650;
+  letter-spacing: 0.02em;
+  line-height: 1.15;
+  color: #000;
+}
+
+.heroSub{
+  margin-top: 8px;
+  font-size: 11px;
+  font-weight: 650;
+  letter-spacing: 0.12em;
+  opacity: 0.75;
+  color: #000;
+}
+
+/* Left vertical name (blue rectangle area) */
+.heroNameVertical{
+  position: absolute;
+  left: 0px;
+  top: 220px;
+  z-index: 6;
+  pointer-events: none;
+
+  font-size: 12px;
+  font-weight: 650;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #000;
+
+  writing-mode: vertical-rl;
+}
+
+
+  .plate, .ink, .ghost, .strip{ box-shadow:none !important; }
+
+  .plate{
+    position:absolute;
+    background: var(--greyA);
+    cursor: grab;
+    touch-action: none;
+    user-select:none;
+    -webkit-user-select:none;
+    will-change: left, top, transform;
+    overflow:hidden;
+    z-index: 2;
+    display:block;
+    text-decoration:none;
+    color:inherit;
+  }
+  .plate.is-grabbing{ cursor: grabbing; z-index: 999; }
+
+  .plate.cover{
+    background-size: cover;
+    background-position: center;
+    background-repeat:no-repeat;
+    background-color: var(--greyB);
+  }
+
+  .plate.topA.cover{ background-image:url("./img/topS_01.png"); }
+  .plate.topB.cover{ background-image:url("./img/topS_02.png"); }
+  .plate.topC.cover{ background-image:url("./img/topS_03.png"); }
+
+  .plate.leftBig.cover{ background-image:url("/assets/img/BG_main.png"); }
+/* =========================================================
+   ✅ CANVAS TEXT ADD-ONS (Desktop only)
+   ========================================================= */
+
+/* Top-left: aligned to the same left border as #leftBig */
+.heroTitleBlock{
+  position: absolute;
+  left: 90px;     /* matches .plate.leftBig left */
+  top: 44px;      /* your current placement looks good */
+  width: 528px;   /* matches .plate.leftBig width */
+  z-index: 50;    /* ensure always above plates */
+  pointer-events: none;
+  text-align: left;
+}
+
+.heroTitle{
+  font-size: 18px;
+  font-weight: 650;
+  letter-spacing: 0.02em;
+  line-height: 1.15;
+  color: #000;
+}
+.workSamplesTagWrap{
+  position:absolute;
+  left: 1052px;     /* same as .plate.topC left */
+  top: 60px;        /* just above .plate.topC (top:114px) */
+  width: 156px;     /* same as .plate.topC width */
+  height: 24px;
+
+  z-index: 999;     /* above plates + ink */
+  pointer-events:none;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+}
+
+.workSamplesTag{
+  font-size: 12px;
+  font-weight: 650;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color:#000;
+  opacity: 0.85;
+  white-space: nowrap;
+}
+
+
+.heroSub{
+  margin-top: 8px;
+  font-size: 11px;
+  font-weight: 650;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  opacity: 0.75;
+  color: #000;
+}
+#group{
+  overflow: visible;
+}
+
+
+/* LEFT VERTICAL NAME
+   Wrapper defines the "blue rectangle" zone,
+   then centers the vertical text inside it. */
+.heroNameVerticalWrap{
+  position: absolute;
+
+  /* moved inward so paper overflow:hidden won't cut it */
+  
+  left: 25px;   /* red rectangle X */
+  top: 22px;    /* red rectangle Y */
+  /* keep everything else the same */
+
+
+  /* slightly larger safe box so letters never clip */
+  width: 150px;
+  height: 380px;
+
+  z-index: 999;          /* above everything */
+  pointer-events: none;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  overflow: visible;     /* wrapper never clips */
+}
+
+.heroNameVertical{
+  font-size: 12px;
+  font-weight: 650;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #000;
+  opacity: 0.98;
+
+  /* keep it vertical */
+  writing-mode: vertical-rl;
+  
+
+  /* extra safety for tall glyphs */
+  line-height: 1;
+  padding: 6px 0;
+  white-space: nowrap;
+}
+
+
+/* WORK SAMPLES TAG
+   Wrapper defines the "yellow rectangle" zone
+   and centers the label inside it. */
+
+
+  .plate.leftBig{
+    left:90px;
+    top:114px;
+    width: 528px;
+    height: 494px;
+    border-radius: 8px;
+    background-image: url("/BG_main.png");
+  }
+
+  .plate.topA{ left: 684px; top: 114px; width: 156px; height: 206px; border-radius: 8px; }
+  .plate.topB{ left: 858px; top: 114px; width: 156px; height: 206px; border-radius: 8px; }
+  .plate.topC{ left: 1032px; top: 114px; width: 156px; height: 206px; border-radius: 8px; }
+/* =========================================================
+   ✅ CANVAS TEXT OVERLAYS (Desktop only)
+   ========================================================= */
+
+/* Top-left block aligned to leftBig */
+.heroTitleBlock{
+  position: absolute;
+  left: 90px;      /* same as .plate.leftBig */
+  top: 44px;
+  width: 528px;    /* same as .plate.leftBig */
+  z-index: 20;     /* above plates/ink */
+  pointer-events: none;
+  text-align: left;
+}
+
+.heroTitle{
+  font-size: 18px;
+  font-weight: 650;
+  letter-spacing: 0.02em;
+  line-height: 1.15;
+  color: #000;
+}
+
+.heroSub{
+  margin-top: 8px;
+  font-size: 11px;
+  font-weight: 650;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  opacity: 0.75;
+  color: #000;
+}
+
+/* ✅ Vertical name: centered in the blue rectangle area and NEVER under anything */
+
+
+
+  .strip{
+    position:absolute;
+    left: 684px;
+    top: 344px;
+    width: 504px;
+    height: 48px;
+    border-radius: 8px;
+    background: #000;
+    z-index: 1;
+  }
+
+  .ink{
+    position:absolute;
+    background:#000;
+    border-radius: 999px;
+    touch-action:none;
+    cursor: grab;
+    will-change: left, top, transform;
+    z-index: 3;
+  }
+  .ink.vert{ left: 648px; top: 114px; width: 18px; height: 494px; }
+  .ink.base{ left: 684px; top: 416px; width: 504px; height: 18px; border-radius: 999px; }
+  .ink.rightBlock{ left: 1210px; top: 114px; width: 22px; height: 494px; border-radius: 999px; }
+
+  /* Anchor point for author credit */
+.demoReel{
+  position: relative;
+}
+
+/* Author credit under demo reel */
+.author-credit{
+  position: absolute;
+  right: 0;            /* aligns to demo reel right edge */
+  bottom: -30px;       /* pushes text below the demo reel */
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  opacity: 0.75;
+  text-align: right;
+  white-space: nowrap;
+  pointer-events: none;
+}
+
+  .plate.centerWide.demoReel{
+    left: 684px;
+    top: 456px;
+    width: 504px;
+    height: 152px;
+    border-radius: 10px;
+    background: #000;
+    border: 1px solid rgba(255,255,255,0.14);
+    display:grid;
+    place-items:center;
+  }
+
+  .demoReelInner{
+    display:flex;
+    align-items:center;
+    gap:16px;
+  }
+
+  .demoReelText{
+    font-size: 14px;
+    letter-spacing:0.16em;
+    text-transform:uppercase;
+    color:#fff;
+    opacity:0.9;
+  }
+
+  .demoReelIcon{
+    position: relative;
+    width: 52px;
+    height: 52px;
+    border-radius: 14px;
+    border: 1px solid rgba(255,255,255,0.18);
+    display:grid;
+    place-items:center;
+  }
+
+  .demoReelIcon .play{
+    width:0;
+    height:0;
+    border-left: 16px solid rgba(255,255,255,0.92);
+    border-top: 10px solid transparent;
+    border-bottom: 10px solid transparent;
+    transform: translateX(2px);
+  }
+
+  .demoReelIcon .lock{
+    position:absolute;
+    right:-6px;
+    bottom:-6px;
+    width: 22px;
+    height: 18px;
+    border: 2px solid rgba(255,255,255,0.92);
+    border-radius: 5px;
+    background:#000;
+  }
+
+  .demoReelIcon .lock::before{
+    content:"";
+    position:absolute;
+    left:50%;
+    top:-10px;
+    width: 14px;
+    height: 12px;
+    border: 2px solid rgba(255,255,255,0.92);
+    border-bottom:none;
+    border-radius: 10px 10px 0 0;
+    transform: translateX(-50%);
+    background: transparent;
+  }
+
+  .label{
+    position:absolute;
+    z-index: 4;
+    background:#000;
+    border-radius: 6px;
+  }
+  .label.about{ left: 90px; top: 640px; width: 96px; height: 18px; }
+  .label.role{
+    left: 204px;
+    top: 636px;
+    font-size: 12px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    opacity: 0.85;
+    color: #000;
+    background: transparent;
+    border-radius:0;
+    height:auto;
+    width:auto;
+  }
+}
+
+/* Footer */
+.site-footer{
+  position: fixed;
+  left:0; right:0; bottom:0;
+  height:48px;
+  background:#000;
+  z-index:200000;
+  display:flex;
+  align-items:center;
+  justify-content:flex-end;
+  padding:0 18px;
+}
+.site-footer a{
+  display:inline-flex;
+  width:18px; height:18px;
+  color:#fff;
+  opacity:0.75;
+}
+.site-footer a:hover{ opacity:1; }
+.site-footer svg{ width:100%; height:100%; fill: currentColor; }
+
+/* Responsive for the MAYDA-style grid */
+@media (max-width:1100px){
+  .hardware-grid{ grid-template-columns: repeat(2, minmax(0,1fr)); gap: 36px; }
+}
+@media (max-width:700px){
+  .hardware-grid{ grid-template-columns: 1fr; gap: 30px; }
+  .blue-brand{
+    white-space: normal;
+    line-height: 0.9;
+  }
+  .rail-inner{ padding: 52px 22px; }
+}
+
+/* Page number tile (fixed top-right) */
+.page-indicator{
+  position: fixed;
+  top: 22px;
+  right: 22px;
+  width: 92px;
+  height: 92px;
+  border-radius: 14px;
+  background: rgba(255,255,255,0.92);
+  border: 1px solid rgba(0,0,0,0.14);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+
+  display: grid;
+  place-items: center;
+
+  z-index: 250000;
+  pointer-events: none;
+
+  transform-style: preserve-3d;
+  perspective: 900px;
+}
+
+.page-indicator__num{
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+
+  font-size: 54px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  color: #000;
+
+  backface-visibility: hidden;
+  transform-origin: 50% 55%;
+  will-change: transform, opacity;
+}
+
+.page-indicator__num.is-next{
+  opacity: 0;
+  transform: rotateX(90deg);
+}
+
+/* Workflow circles */
+.flow-circles-section{ padding: 0; margin: 0; }
+.index-flow{ padding: 0; margin: 0; }
+
+.flow-circles{
+  width: 100%;
+  max-width: 980px;
+  margin: 0 auto;
+  padding: 22px 0 10px;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 22px;
+  align-items: start;
+  position: relative;
+}
+
+.flow-circles::before{
+  content:"";
+  position:absolute;
+  left: 10%;
+  right: 10%;
+  top: 52px;
+  height: 1px;
+  background: rgba(0,0,0,0.18);
+  pointer-events:none;
+}
+
+.flow-step{
+  display: grid;
+  justify-items: center;
+  gap: 10px;
+}
+
+.flow-circle{
+  width: 92px;
+  height: 92px;
+  border-radius: 999px;
+  background: rgba(255,255,255,0.92);
+  border: 1px solid rgba(0,0,0,0.14);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  display: grid;
+  place-items: center;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.06);
+  position: relative;
+  z-index: 1;
+}
+
+.flow-circle svg{ width: 38px; height: 38px; color: #000; }
+
+.flow-label{ text-align: center; line-height: 1.2; }
+
+.flow-title{
+  font-size: 14px;
+  font-weight: 650;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.flow-sub{
+  margin-top: 6px;
+  font-size: 12px;
+  opacity: 0.7;
+}
+
+@media (max-width: 900px){
+  .flow-circles{
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 18px;
+    padding: 18px 0 6px;
+  }
+  .flow-circles::before{ display:none; }
+}
+
+/* === FINAL GATE CENTERING FIX === */
+@media (max-width:1024px){
+  .mobile-block{
+    display: flex !important;
+    align-items: center !important;     /* vertical */
+    justify-content: center !important; /* horizontal */
+    text-align: center !important;
+  }
+
+  .mobile-block__inner{
+    display: block;
+    margin: 0;
+  }
+}
+/* === ABSOLUTE, VIEWPORT-BASED GATE CENTERING === */
+@media (max-width:1024px){
+  .mobile-block{
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100vw !important;
+    height: 100vh !important;
+
+    display: flex !important;
+    align-items: center !important;      /* vertical center */
+    justify-content: center !important;  /* horizontal center */
+
+    background: #fff !important;
+    z-index: 999999 !important;
+  }
+
+  .mobile-block__inner{
+    display: block !important;
+    margin: 0 !important;
+    padding: 24px !important;
+    text-align: center !important;
+  }
+}
+
+/* =========================================================
+   ✅ ADD-ON: HERO CREDITS (top-left in hero boundary)
+   ========================================================= */
+.hero{ position: relative; }
+
+.hero-meta{
+  position: absolute;
+  top: 22px;
+  left: 22px;
+  z-index: 260000; /* above hero content */
+  pointer-events: none;
+
+  display: grid;
+  gap: 6px;
+
+  padding: 10px 12px;
+  border-radius: 12px;
+
+  background: rgba(255,255,255,0.92);
+  border: 1px solid rgba(0,0,0,0.14);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+.hero-meta__line{
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 10px;
+  align-items: baseline;
+}
+
+.hero-meta__label{
+  font-size: 5px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  opacity: 0.75;
+  color: #000;
+}
+
+.hero-meta__value{
+  font-size: 2px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #000;
+  font-weight: 650;
+}
+
+/* =========================================================
+   ✅ ADD-ON: FOOTER DROPDOWN HIDE ANIMATION
+   - toggled via .is-hidden on .site-footer
+   ========================================================= */
+.site-footer{
+  transform: translateY(0);
+  transition: transform 320ms cubic-bezier(.2,.8,.2,1);
+  will-change: transform;
+}
+
+.site-footer.is-hidden{
+  transform: translateY(100%);
+}
+
+/* respect reduced motion */
+@media (prefers-reduced-motion: reduce){
+  .site-footer{ transition: none; }
+}
+/* =========================================================
+   ✅ ADD-ON: HERO INSTRUCTION TEXT (centered)
+   ========================================================= */
+.hero{
+  position: relative;
+}
+
+.hero-instruction{
+  position: absolute;
+  top: 20%;
+  left: 26.8%;
+  transform: translate(-50%, -150%);
+
+  z-index: 240000;
+
+  font-size: clamp(14px, 2.4vw, 12px);
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  line-height: 1.05;
+
+  
+
+  color: #000;
+  border-radius: 18px;
+  padding: 18px 22px;
+
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+
+  pointer-events: none; /* does not block clicks */
+  text-align: left;
+}
+
+/* Global heading top padding */
+.white-copy h2,
+.white-copy h3,
+.white-copy h4{
+  padding-top: 5%;
+}
+
+
+/* PCL: show full logos, never crop */
+.pcl-tile{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  overflow: visible; /* optional: keeps nothing clipped */
+}
+
+.pcl-logo{
+  width: auto !important;
+  height: auto !important;
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  display: block;
+}
+/* PCL GRID — 2× tile size */
+.pcl-grid{
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 32px;
+}
+
+/* Make tiles taller to match the wider tracks */
+.pcl-tile{
+  min-height: 120px;
+}
+
+/* Project pages: 4-tile media grid */
+.media-grid-4{
+  display:grid;
+  grid-template-columns:repeat(4, 1fr);
+  gap:14px;
+}
+
+.media-tile{
+  height:140px;
+  border-radius:14px;
+  background:#e6e6e6;
+  overflow:hidden;
+  display:block;
+}
+
+.media-tile img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  display:block;
+}
+/* 4-tile grid (reuse) */
+.media-grid-4{
+  display:grid;
+  grid-template-columns:repeat(4, 1fr);
+  gap:14px;
+}
+
+/* YouTube tiles */
+.yt-tile{
+  height:140px;
+  border-radius:14px;
+  background:#e6e6e6;
+  overflow:hidden;
+  display:block;
+  padding:0;
+  border:0;
+  cursor:pointer;
+  position:relative;
+}
+
+.yt-tile img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  display:block;
+}
+
+.yt-play-badge{
+  position:absolute;
+  inset:auto 12px 12px auto;
+  width:36px;
+  height:36px;
+  border-radius:999px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:rgba(0,0,0,.65);
+  color:#fff;
+  font-size:16px;
+  line-height:1;
+}
+
+/* Modal shell */
+.yt-modal{
+  position:fixed;
+  inset:0;
+  display:none;
+  z-index:99999;
+}
+
+.yt-modal.is-open{
+  display:block;
+}
+
+.yt-modal__backdrop{
+  position:absolute;
+  inset:0;
+  background:rgba(0,0,0,.55);
+}
+
+/* Modal panel */
+.yt-modal__panel{
+  position:relative;
+  width:min(980px, calc(100vw - 32px));
+  margin:48px auto;
+  border-radius:16px;
+  background:#fff;
+  box-shadow:0 24px 80px rgba(0,0,0,.35);
+  overflow:hidden;
+}
+
+.yt-modal__header{
+  display:flex;
+  justify-content:flex-end;
+  padding:10px 10px 0 10px;
+}
+
+.yt-modal__playerWrap{
+  padding:12px;
+}
+
+#ytPlayer{
+  width:100%;
+  aspect-ratio:16/9;
+  border-radius:12px;
+  overflow:hidden;
+  background:#000;
+}
+
+/* Controls */
+.yt-modal__controls{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  padding:12px;
+  border-top:1px solid rgba(0,0,0,.08);
+}
+
+.yt-btn{
+  appearance:none;
+  border:1px solid rgba(0,0,0,.12);
+  background:#fff;
+  padding:8px 12px;
+  border-radius:10px;
+  cursor:pointer;
+}
+
+.yt-btn--ghost{
+  border:0;
+  background:transparent;
+  font-size:18px;
+}
+
+.yt-volume{
+  margin-left:auto;
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+
+.yt-volume__label{
+  font-size:12px;
+  opacity:.75;
+}
+
+
+/* ===== YOUR EXISTING main.css CONTENT ABOVE (UNCHANGED) ===== */
+
+/* =========================================================
+   Project Pages: 4-tile grids and YouTube modal (Project B)
+   (Appended, does not alter existing layout)
+   ========================================================= */
+
+/* Same spacing/feel as your existing tiles */
+.media-grid-4{
+  display:grid;
+  grid-template-columns:repeat(4, 1fr);
+  gap:14px;
+}
+
+/* Brand grid (if you use it) */
+.brand-grid-4{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:14px;
+}
+.brand-tile{
+  height:140px;
+  border-radius:14px;
+  background:#e6e6e6;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:12px;
+  opacity:.7;
+}
+
+/* YouTube tiles */
+.yt-tile{
+  height:140px;
+  border-radius:14px;
+  background:#e6e6e6;
+  overflow:hidden;
+  display:block;
+  padding:0;
+  border:0;
+  cursor:pointer;
+  position:relative;
+}
+
+.yt-tile img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  display:block;
+}
+
+.yt-play-badge{
+  position:absolute;
+  right:12px;
+  bottom:12px;
+  width:36px;
+  height:36px;
+  border-radius:999px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:rgba(0,0,0,.65);
+  color:#fff;
+  font-size:16px;
+  line-height:1;
+}
+
+/* Modal shell */
+.yt-modal{
+  position:fixed;
+  inset:0;
+  display:none;
+  z-index:99999;
+}
+
+.yt-modal.is-open{
+  display:block;
+}
+
+.yt-modal__backdrop{
+  position:absolute;
+  inset:0;
+  background:rgba(0,0,0,.65);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+.yt-modal__panel{
+  position:relative;
+  width:min(860px, calc(100vw - 40px));
+  margin:48px auto;
+  border-radius:16px;
+  background:#fff;
+  box-shadow:0 24px 80px rgba(0,0,0,.35);
+  overflow:hidden;
+}
+
+
+.yt-modal__header{
+  display:flex;
+  justify-content:flex-end;
+  padding:10px 10px 0 10px;
+}
+
+.yt-modal__playerWrap{
+  padding:12px;
+}
+
+#ytPlayer{
+  width:100%;
+  aspect-ratio:16/9;
+  border-radius:12px;
+  overflow:hidden;
+  background:#000;
+}
+
+/* Controls */
+.yt-modal__controls{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  padding:12px;
+  border-top:1px solid rgba(0,0,0,.08);
+}
+
+.yt-btn{
+  appearance:none;
+  border:1px solid rgba(0,0,0,.12);
+  background:#fff;
+  padding:8px 12px;
+  border-radius:10px;
+  cursor:pointer;
+}
+
+.yt-btn--ghost{
+  border:0;
+  background:transparent;
+  font-size:18px;
+}
+
+.yt-volume{
+  margin-left:auto;
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+
+.yt-volume__label{
+  font-size:12px;
+  opacity:.75;
+}
+/* ============================
+   Project A Media Modal + Tiles
+   ============================ */
+
+.media-grid-4{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:14px;
+}
+
+.media-tile-btn{
+  position:relative;
+  border:0;
+  padding:0;
+  background:#f4f4f4;
+  border-radius:14px;
+  overflow:hidden;
+  height:140px;
+  cursor:pointer;
+  display:block;
+}
+
+.media-tile-btn img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  display:block;
+}
+
+.media-play-badge{
+  position:absolute;
+  inset:auto auto 10px 10px;
+  width:34px;
+  height:34px;
+  border-radius:999px;
+  background:rgba(0,0,0,.62);
+  color:#fff;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:14px;
+  line-height:1;
+  pointer-events:none;
+}
+
+.media-modal{
+  position:fixed;
+  inset:0;
+  z-index:9999;
+  display:none;
+}
+
+.media-modal.is-open{
+  display:block;
+}
+
+.media-modal__backdrop{
+  position:absolute;
+  inset:0;
+  background:rgba(0,0,0,.65);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+.media-modal__panel{
+  position:absolute;
+  left:50%;
+  top:50%;
+  transform:translate(-50%,-50%);
+  width:min(560px, 90vw);
+  background:#fff;
+  border-radius:16px;
+  overflow:hidden;
+  box-shadow:0 20px 60px rgba(0,0,0,.25);
+}
+
+
+.media-modal__header{
+  display:flex;
+  justify-content:flex-end;
+  padding:10px 10px 0 10px;
+}
+
+.media-modal__playerWrap{
+  position:relative;
+  background:#000;
+  width:100%;
+  aspect-ratio:16/9;
+}
+
+.media-player-slot,
+.media-embed-slot{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+}
+
+.media-embed-slot{
+  border:0;
+  display:none;
+}
+
+.media-modal__controls{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  padding:12px 14px 16px 14px;
+}
+
+.media-btn{
+  border:1px solid rgba(0,0,0,.14);
+  background:#fff;
+  padding:8px 12px;
+  border-radius:999px;
+  cursor:pointer;
+  font-size:12px;
+}
+
+.media-btn--ghost{
+  border:0;
+  background:transparent;
+  font-size:16px;
+  padding:8px 10px;
+}
+
+.media-btn:disabled{
+  opacity:.45;
+  cursor:not-allowed;
+}
+
+.media-volume{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  margin-left:auto;
+}
+
+.media-volume__label{
+  font-size:12px;
+  opacity:.75;
+}
+
+.media-hint{
+  margin:0;
+  font-size:12px;
+  opacity:.65;
+  min-height:14px;
+  padding-left:8px;
+}
+/* ===============================
+   Hover preview (created by main.js)
+   This makes it visible without changing layout
+   =============================== */
+.hover-preview{
+  position: fixed;
+  width: 360px;
+  height: 240px;
+  display: none;
+  pointer-events: none;
+  z-index: 999999;
+}
+
+.hover-preview__media{
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+/* meta exists but stays hidden to preserve your current look */
+.hover-preview__meta{ display:none; }
+#popout-player {
+  position: fixed;
+  inset: 0;
+  display: none;
+  z-index: 9999;
+  background: rgba(0,0,0,.55);
+  backdrop-filter: blur(10px);
+}
+
+#popout-player.is-open {
+  display: grid;
+  place-items: center;
+}
+
+.popout-shell {
+  width: min(1100px, 92vw);
+  aspect-ratio: 16 / 9;
+  background: #000;
+  border-radius: 14px;
+  overflow: hidden;
+  display: grid;
+  grid-template-rows: 1fr auto;
+}
+
+.popout-stage {
+  position: relative;
+}
+
+.popout-stage iframe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
+.popout-controls {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 14px;
+  background: rgba(12,12,12,.95);
+}
+
+.popout-controls button {
+  background: #1a1a1a;
+  border: 1px solid rgba(255,255,255,.12);
+  color: white;
+  border-radius: 999px;
+  padding: 6px 12px;
+  cursor: pointer;
+}
+
+.popout-controls input[type="range"] {
+  width: 160px;
+}
+/* =========================================================
+   HERO TILE HOVER DEPTH (no layout changes)
+   Adds a subtle depth pop: shadow + crispness + smoother motion
+   ========================================================= */
+
+#group .plate {
+  will-change: transform, filter;
+  transform-origin: center;
+  backface-visibility: hidden;
+  -webkit-font-smoothing: antialiased;
+  transition: filter 180ms ease, box-shadow 180ms ease;
+}
+
+/* When JS adds zIndex + scale, this adds "depth" feel */
+#group .plate:hover {
+  filter: brightness(1.03) contrast(1.02) saturate(1.02);
+  box-shadow:
+    0 14px 34px rgba(0, 0, 0, 0.22),
+    0 2px 10px rgba(0, 0, 0, 0.16);
+}
+
