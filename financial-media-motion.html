@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Financial Media & Motion Design · Case Study</title>
+  <meta name="description" content="Case study page: Financial Media Motion." />
+
+  <!-- IBM Plex Sans -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<!-- Favicon -->
+<link rel="icon" type="image/png" href="/assets/media/BG_main.png" />
+<link rel="apple-touch-icon" href="/assets/media/BG_main.png" />
+
+  <link rel="stylesheet" href="/css/case-study.css" />
+</head>
+<body>
+  <main class="page">
+    <header class="header">
+      <div class="kicker"><span class="dot" aria-hidden="true"></span></div>
+      <h1>Financial Media & Motion</h1>
+    </header>
+
+    <!-- 4 Samples (YouTube thumbs + click to open YouTube modal) -->
+    <section class="samples" aria-label="Samples">
+      <a class="sample" href="#" aria-label="Open Crypto in 2023 Predictions"
+         data-video="jirud4v3x0A"
+         data-youtube-url="https://www.youtube.com/watch?v=jirud4v3x0A"
+         data-title="Crypto in 2023: Predictions">
+        <div class="cover" aria-hidden="true">
+          <img src="https://i.ytimg.com/vi/jirud4v3x0A/hqdefault.jpg" alt="Crypto in 2023 Predictions cover" loading="lazy" />
+        </div>
+        <div class="sample-meta">
+          <div class="sample-title">Crypto in 2023: Predictions</div>
+        </div>
+      </a>
+
+      <a class="sample" href="#" aria-label="Open Preventing the Next Crypto Hack"
+         data-video="MJkkce1BpR8"
+         data-youtube-url="https://www.youtube.com/watch?v=MJkkce1BpR8"
+         data-title="Preventing the Next Crypto Hack">
+        <div class="cover" aria-hidden="true">
+          <img src="https://i.ytimg.com/vi/MJkkce1BpR8/hqdefault.jpg" alt="Prevent the Next Crypto Hack cover" loading="lazy" />
+        </div>
+        <div class="sample-meta">
+          <div class="sample-title">Preventing the Next Crypto Hack</div>
+        </div>
+      </a>
+
+      <a class="sample" href="#" aria-label="Open Empire Awards Episode"
+         data-video="Fz_F30IK1JM"
+         data-youtube-url="https://www.youtube.com/watch?v=Fz_F30IK1JM"
+         data-title="Empire Awards: Winners & Losers">
+        <div class="cover" aria-hidden="true">
+          <img src="https://i.ytimg.com/vi/Fz_F30IK1JM/hqdefault.jpg" alt="Empire Awards Winners and Losers cover" loading="lazy" />
+        </div>
+        <div class="sample-meta">
+          <div class="sample-title">Empire Awards: Winners & Losers</div>
+        </div>
+      </a>
+
+      <a class="sample" href="#" aria-label="Open 2023 Crypto Blood Bath"
+         data-video="bTuPq2tmoS4"
+         data-youtube-url="https://www.youtube.com/watch?v=bTuPq2tmoS4"
+         data-title="Why 2023 Will Be a Blood Bath">
+        <div class="cover" aria-hidden="true">
+          <img src="https://i.ytimg.com/vi/bTuPq2tmoS4/hqdefault.jpg" alt="Why 2023 Will Be a Blood Bath cover" loading="lazy" />
+        </div>
+        <div class="sample-meta">
+          <div class="sample-title">Why 2023 Will Be a Blood Bath</div>
+        </div>
+      </a>
+    </section>
+
+    <!-- Player Overlay (YouTube IFrame Player API) -->
+    <section class="player-overlay" id="playerOverlay" aria-hidden="true" aria-label="Video player overlay">
+      <div class="player-card" role="dialog" aria-modal="true" aria-label="Video player">
+        <div class="player-topbar">
+          <div class="player-title" id="playerTitle">Video</div>
+          <button class="player-close" type="button" data-player-close aria-label="Close video">✕</button>
+        </div>
+
+        <div class="player-video-wrap" id="playerWrap">
+          <!-- YouTube player mounts here -->
+          <div id="ytPlayer"></div>
+
+          <!-- Custom controls -->
+          <div class="player-controls" aria-label="Player controls">
+            <button class="ctrl-btn" type="button" data-ctrl="play" aria-label="Play/Pause">
+              <span data-icon="play">▶</span>
+              <span data-icon="pause" class="is-hidden">❚❚</span>
+            </button>
+
+            <button class="ctrl-btn" type="button" data-ctrl="mute" aria-label="Mute/Unmute">
+              <span data-icon="vol">🔊</span>
+              <span data-icon="muted" class="is-hidden">🔇</span>
+            </button>
+
+            <div class="ctrl-volume">
+              <input
+                class="ctrl-range"
+                type="range"
+                min="0"
+                max="100"
+                value="80"
+                step="1"
+                data-ctrl="volume"
+                aria-label="Volume"
+              />
+            </div>
+
+            <div class="ctrl-spacer" aria-hidden="true"></div>
+
+            <a class="ctrl-link" href="#" target="_blank" rel="noopener" data-ctrl="youtube">
+              Watch on YouTube ↗
+            </a>
+
+            <button class="ctrl-btn" type="button" data-ctrl="fullscreen" aria-label="Fullscreen">
+              ⛶
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="divider" role="separator" aria-hidden="true"></div>
+
+    <!-- Overview -->
+    <section class="section" id="overview">
+      <h2>Overview</h2>
+      <div class="panel">
+        <p>
+          I worked as a video editor and motion graphics designer on multiple long-form finance and crypto podcast series,
+          producing both full episodes and social cutdowns on a tight weekly cadence. The goal was fast, accurate,
+          brand-consistent output while maintaining editorial clarity across complex topics.
+        </p>
+        <ul>
+          <li><strong>Client/Org:</strong> Blockworks LLC</li>
+          <li><strong>Role:</strong> Video Editor & 3D Generalist</li>
+          <li><strong>Tools:</strong> Adobe Creative Suite, Blender, Descript, Asana, Megaphone, YouTube Studio, Slack</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- What I did -->
+    <section class="section" id="what-i-did">
+      <h2>What I did</h2>
+      <div class="panel">
+        <ul>
+          <li>Edited long-form finance and crypto podcast episodes and created social cutdowns, maintaining clarity and pacing.</li>
+          <li>Designed and applied branded motion graphics, lower thirds, captions, and sound design using Premiere Pro and After Effects.</li>
+          <li>Collaborated with producers to interpret episode intent, incorporate feedback, and refine edits through structured review cycles.</li>
+          <li>Improved efficiency via transcript-based workflows and clean project structure for faster revisions.</li>
+          <li>Delivered platform-ready exports for YouTube/social with spec-safe audio, captions, and branding.</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- Process -->
+    <section class="section" id="process">
+      <h2>Process</h2>
+      <div class="panel">
+        <ul>
+          <li>Pre-Production: Reviewed outlines/recordings, set templates, and aligned on deliverables (full + shorts).</li>
+          <li>Editing & Motion: Cut in Premiere Pro, applied AE packages, captions, and sound design with pacing/clarity focus.</li>
+          <li>Workflow & Review: Used transcripts + review tools to reduce iteration time and speed approvals.</li>
+          <li>Delivery: Exported to spec for platform, ensuring consistency, readability, and compliance.</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- Results -->
+    <section class="section" id="results">
+      <h2>Results</h2>
+      <div class="panel">
+        <ul>
+          <li><strong>Result 1:</strong> Delivered a steady output of 2–3+ episodes per week across multiple shows.</li>
+          <li><strong>Result 2:</strong> Reduced average turnaround time by improving edit structure and review flow.</li>
+          <li><strong>Result 3:</strong> Maintained brand consistency with reusable motion + caption systems.</li>
+        </ul>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <span>© <span data-year></span> Oliver Cramel Davies</span>
+      <a class="small-link" href="./index.html">Back to home</a>
+    </footer>
+  </main>
+
+  <script src="/js/case-study.js" defer></script>
+</body>
+</html>
